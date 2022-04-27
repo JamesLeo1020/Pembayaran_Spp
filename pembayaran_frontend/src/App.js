@@ -16,8 +16,8 @@ export default function App() {
         <Route exact path='/' element={<Dashboard/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/siswa/:nisn' element={<Siswa/>}/>
         <Route path='/siswa' element={<Siswa/>}/>
+        <Route path='/siswa/:nisn' element={<Siswa/>}/>
         <Route path='/setting' element={<Setting/>}/>
       </Routes>
     </div>

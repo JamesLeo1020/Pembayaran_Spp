@@ -263,8 +263,8 @@ class Dashboard extends React.Component{
                             }/>
                              <div className="text-center mt-4">
                                 <button type="button" className="text-gray-800 text-sm" onClick={() => this.Logout()}>Kembali ke halaman login</button>
-                                <p className="text-gray-500 text-sm">Tailwind and a cup of coffee | by <a href="http://github.com/gagassurya19" target="_blank" rel="noreferrer">Gagassurya19</a></p>
-                                <p className="text-gray-500 text-sm">&copy;2021</p>
+                                <p className="text-gray-500 text-sm">Tailwind and a cup of coffee | by <a href="http://github.com/gagassurya19" target="_blank" rel="noreferrer">JamesLeo</a></p>
+                                <p className="text-gray-500 text-sm">&copy;2022</p>
                             </div>
                         </div>
                     </div>

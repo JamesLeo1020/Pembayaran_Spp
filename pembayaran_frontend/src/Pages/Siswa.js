@@ -5,10 +5,11 @@ import { base_url } from "../Config.js";
 
 // components
 import Alert from '../Components/Alert'
+import { withRouter } from "../withRouter.js";
 
-class Dashboard extends React.Component{
-    constructor(){
-        super()
+class Siswa extends React.Component{
+    constructor(props){
+        super(props)
         this.state = {
             nisn: "",
             data_siswa: "",
@@ -21,7 +22,7 @@ class Dashboard extends React.Component{
     }
 
     getData = () => {
-        let nisn = '/' + this.props.match.params.nisn
+        let nisn = '/' + this.props.params.nisn
         let url = base_url + "/siswa" + nisn;
 
         axios.get(url)
@@ -54,7 +55,7 @@ class Dashboard extends React.Component{
     }
 
     componentDidMount(){
-        if(!this.props.match.params.nisn){
+        if(!this.props.params.nisn){
             window.location = '/login'
         }
         this.getData()
@@ -102,9 +103,6 @@ class Dashboard extends React.Component{
                                             <div className="text-xl text-center w-full bg-indigo-100 text-indigo-700 dark:text-indigo-600 rounded font-medium p-3 lg:mr-3">
                                                 SPP Tahun {this.state.data_spp.tahun} || Rp {this.state.data_spp.nominal}
                                                 </div>
-                                            <div className="mt-4 text-center w-full lg:mt-0 text-xl bg-red-200 text-red-500 rounded font-medium p-3">
-                                                Sisa Saldo || Rp{ this.state.sisa }
-                                                </div>
                                         </div>
                                         <div className="mt-6 mb-8 w-full bg-gray-100 dark:bg-gray-700 rounded p-4 relative">
                                             <h4 className="text-2xl font-bold leading-tight text-gray-800 mb-4">Data Lengkap Siswa: </h4>
@@ -123,48 +121,48 @@ class Dashboard extends React.Component{
                                         {this.state.data_pembayaran.length ? (
                                             <>
                                                 <h4 className="text-2xl font-bold leading-tight text-gray-800 text-center mb-8">Riwayat Pembayaran</h4>
-                                                <div class="flex flex-col">
-                                                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                                                <table class="min-w-full divide-y divide-gray-200">
-                                                                    <thead class="bg-gray-50">
+                                                <div className="flex flex-col">
+                                                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                                        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                                            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                                                <table className="min-w-full divide-y divide-gray-200">
+                                                                    <thead className="bg-gray-50">
                                                                         <tr>
-                                                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                                             Tanggal
                                                                         </th>
-                                                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                                             Jumlah Bayar
                                                                         </th>
-                                                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                                             Auditor
                                                                         </th>
-                                                                        <th scope="col" class="relative px-6 py-3">
-                                                                            <span class="sr-only">Sign</span>
+                                                                        <th scope="col" className="relative px-6 py-3">
+                                                                            <span className="sr-only">Sign</span>
                                                                         </th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody class="bg-white divide-y divide-gray-200">
+                                                                    <tbody className="bg-white divide-y divide-gray-200">
                                                                         { this.state.data_pembayaran.map( item => (
                                                                             <tr>
-                                                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                                                <div class="text-sm text-gray-900">
+                                                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                                                <div className="text-sm text-gray-900">
                                                                                     {item.tgl_bayar}
                                                                                     </div>
                                                                             </td>
-                                                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                                            <td className="px-6 py-4 whitespace-nowrap">
                                                                                 { item.jumlah_bayar >= item.spp.nominal ? (
                                                                                 <>
                                                                                     { item.jumlah_bayar === item.spp.nominal ? (
-                                                                                        <div class="text-sm text-gray-900">
+                                                                                        <div className="text-sm text-gray-900">
                                                                                             Rp{ item.jumlah_bayar }
                                                                                         </div>
                                                                                     ) :
                                                                                     <>
-                                                                                        <div class="text-sm text-gray-900">
+                                                                                        <div className="text-sm text-gray-900">
                                                                                             Rp{ item.jumlah_bayar} - Rp{item.spp.nominal}
                                                                                         </div>
-                                                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                                                                         Sisa: Rp{item.jumlah_bayar - item.spp.nominal}
                                                                                         </span>
                                                                                     </>
@@ -172,26 +170,26 @@ class Dashboard extends React.Component{
                                                                                 </>
                                                                                 ) :
                                                                                 <> 
-                                                                                    <div class="text-sm text-gray-900">
+                                                                                    <div className="text-sm text-gray-900">
                                                                                         Rp{ item.jumlah_bayar} - Rp{item.spp.nominal}
                                                                                     </div>
-                                                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                                                                         Kurang: Rp{item.spp.nominal - item.jumlah_bayar}
                                                                                     </span>
                                                                                 </>
                                                                                 }
                                                                                 
                                                                             </td>
-                                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                                                 {item.petugas.nama_petugas}
                                                                             </td>
-                                                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                                                 { item.jumlah_bayar < item.spp.nominal ? (
-                                                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                                                                         Belum Lunas
                                                                                     </span>
                                                                                 ) : 
-                                                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                                                     Lunas
                                                                                 </span>
                                                                                 }
@@ -250,4 +248,4 @@ class Dashboard extends React.Component{
     }
 }
 
-export default Dashboard;
+export default withRouter(Siswa);
